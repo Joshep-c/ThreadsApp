@@ -19,10 +19,9 @@ class TaskViewModel : ViewModel() {
 
     private var nextId = 1
 
-    /**
-     * 1. Agregar tarea (Main Thread)
-     * El usuario ingresa los datos y se agregan inmediatamente
-     */
+     // 1. Agregar tarea (Main Thread)
+     // El usuario ingresa los datos y se agregan inmediatamente
+
     fun addTask(title: String, description: String, priority: Int) {
         viewModelScope.launch(Dispatchers.Main) {
             val newTask = Task(nextId++, title, description, priority)
@@ -31,10 +30,9 @@ class TaskViewModel : ViewModel() {
         }
     }
 
-    /**
-     * 2. Procesar una tarea (Worker Thread - Dispatchers.Default)
-     * Simula procesamiento CPU-intensivo en segundo plano
-     */
+     // 2. Procesar una tarea (Worker Thread - Dispatchers.Default)
+     // Simula procesamiento CPU-intensivo en segundo plano
+
     fun processTask(task: Task) {
         viewModelScope.launch {
             _statusMessage.value = "Procesando '${task.title}' en Worker Thread..."
@@ -49,10 +47,9 @@ class TaskViewModel : ViewModel() {
         }
     }
 
-    /**
-     * 3. Ordenar tareas por prioridad (Worker Thread - Dispatchers.Default)
-     * Algoritmo de ordenamiento que se ejecuta en un hilo de trabajo
-     */
+     // 3. Ordenar tareas por prioridad (Worker Thread - Dispatchers.Default)
+     // Algoritmo de ordenamiento que se ejecuta en un hilo de trabajo
+
     fun sortTasksByPriority() {
         viewModelScope.launch {
             _statusMessage.value = "Ordenando tareas en Worker Thread (Dispatchers.Default)..."
@@ -73,10 +70,9 @@ class TaskViewModel : ViewModel() {
         }
     }
 
-    /**
-     * 4. Procesar todas las tareas (Worker Thread - Dispatchers.IO)
-     * Simula procesamiento de múltiples tareas en paralelo
-     */
+     // 4. Procesar todas las tareas (Worker Thread - Dispatchers.IO)
+     // Simula procesamiento de múltiples tareas en paralelo
+
     fun processAllTasks() {
         viewModelScope.launch {
             if (_tasks.value.isEmpty()) {
@@ -94,9 +90,9 @@ class TaskViewModel : ViewModel() {
         }
     }
 
-    /**
-     * 5. Limpiar todas las tareas (Main Thread)
-     */
+
+     // 5. Limpiar todas las tareas (Main Thread)
+
     fun clearAllTasks() {
         viewModelScope.launch(Dispatchers.Main) {
             _tasks.value = emptyList()
@@ -104,10 +100,9 @@ class TaskViewModel : ViewModel() {
         }
     }
 
-    /**
-     * 6. Cargar tareas de ejemplo (Worker Thread - Dispatchers.IO)
-     * Simula carga desde base de datos o red
-     */
+
+     // 6. Cargar tareas de ejemplo (Worker Thread - Dispatchers.IO)
+     // Simula carga desde base de datos o red
     fun loadSampleTasks() {
         viewModelScope.launch {
             _statusMessage.value = "Cargando tareas de ejemplo desde Worker Thread (IO)..."
